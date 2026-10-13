@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="입어보기 전, 나를 먼저 보다. 저장한 코디를 거울 속 내 모습에 입혀주는 가상 피팅 거울, SPOILER MIRROR.">
+<title>SPOILER MIRROR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&family=DM+Mono:wght@400&display=swap">
+<style>
+/* Layout: full-bleed film hero, then quiet ivory gallery sections; pink appears only as light (LED, accents) */
+:root{
+  --ivory:#f7f4f0;
+  --mist:#ece9e7;
+  --ink:#2b2729;
+  --ink-soft:#6f686b;
+  --pink:#ef9fb8;
+  --pink-deep:#d76f92;
+  --ice:#a9c8ea;
+  --line:#ddd7d3;
+  --f-display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-kr-display:"Gowun Batang", "Nanum Myeongjo", serif;
+  --f-body:"Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --f-mono:"DM Mono", ui-monospace, Menlo, monospace;
+  --gutter:clamp(16px, 4vw, 56px);
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden;word-break:keep-all}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--pink-deep);outline-offset:3px}
+.wrap{padding-inline:var(--gutter);max-width:1360px;margin-inline:auto}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+h1,h2,h3{font-weight:400;text-wrap:balance;margin:0}
+h2{font-family:var(--f-kr-display);font-size:clamp(28px,3.6vw,46px);line-height:1.3;letter-spacing:-.01em}
+p{margin:0}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--ivory) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:60px}
+.logo{font-family:var(--f-display);font-weight:500;font-size:20px;letter-spacing:.02em;text-decoration:none;display:flex;align-items:baseline;gap:8px}
+.logo small{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;color:var(--ink-soft)}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:13px}
+.nav ul a{text-decoration:none;color:var(--ink-soft);transition:color .2s}
+.nav ul a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-body);font-size:13px;font-weight:500;letter-spacing:.02em;padding:12px 22px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--ivory);text-decoration:none;cursor:pointer;transition:background .25s,color .25s,box-shadow .35s}
+.btn:hover{background:transparent;color:var(--ink);box-shadow:0 0 0 4px rgba(239,159,184,.25)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--ivory)}
+.btn.light{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.btn.light:hover{background:transparent;color:var(--ivory);border-color:var(--ivory)}
+.nav .btn{padding:9px 18px}
+@media (max-width:760px){.nav ul{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:#1d1a1b;max-height:86vh;aspect-ratio:16/9;min-height:520px;width:100%}
+.hero video{width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,18,0) 45%,rgba(20,16,18,.55) 100%);pointer-events:none}
+.hero-copy{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fbf8f5;padding-block:clamp(24px,5vw,56px)}
+.hero-copy .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.hero h1{font-family:var(--f-kr-display);font-size:clamp(24px,3.2vw,42px);line-height:1.2;letter-spacing:-.015em;max-width:12em}
+.hero .eyebrow{color:rgba(251,248,245,.75);margin-bottom:16px}
+.hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.sound{background:transparent;border:1px solid rgba(251,248,245,.5);color:#fbf8f5;border-radius:999px;width:44px;height:44px;cursor:pointer;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em}
+.sound:hover{border-color:#fbf8f5}
+
+/* intro */
+.intro{padding-block:clamp(72px,10vw,140px)}
+.intro-grid{display:grid;grid-template-columns:minmax(0,440px) 1fr;gap:clamp(32px,7vw,120px);align-items:center}
+.intro-img{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:688/1024;width:100%;max-width:440px}
+.intro-img img{width:100%;height:100%;object-fit:cover}
+.intro-text{display:flex;flex-direction:column;gap:22px;min-width:0}
+.intro-text p.lead{font-size:16px;color:var(--ink-soft);max-width:34em}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:10px}
+.specs div{padding:16px 0 0;display:flex;flex-direction:column;gap:4px}
+.specs b{font-family:var(--f-display);font-weight:300;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.specs b sub{font-size:13px;vertical-align:baseline;margin-left:2px;font-family:var(--f-mono)}
+.specs span{font-size:12px;color:var(--ink-soft)}
+@media (max-width:900px){.intro-grid{grid-template-columns:1fr}}
+
+/* how */
+.how{background:var(--mist);padding-block:clamp(64px,9vw,120px)}
+.how-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{border-top:1px solid var(--ink);padding-top:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.steps .n{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--pink-deep)}
+.steps h3{font-family:var(--f-kr-display);font-size:22px;line-height:1.4}
+.steps p{color:var(--ink-soft);font-size:14px}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+
+/* compare */
+.compare-sec{padding-block:clamp(72px,10vw,140px)}
+.compare-grid{display:grid;grid-template-columns:1fr minmax(0,460px);gap:clamp(32px,6vw,96px);align-items:center}
+.compare-text{display:flex;flex-direction:column;gap:20px;min-width:0}
+.compare-text p{color:var(--ink-soft);max-width:30em}
+.legend{display:flex;gap:24px;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.legend span{display:flex;align-items:center;gap:8px}
+.legend i{width:8px;height:8px;border-radius:50%;background:var(--line);display:inline-block}
+.legend .on i{background:var(--pink);box-shadow:0 0 10px var(--pink)}
+.compare{position:relative;width:100%;max-width:460px;aspect-ratio:688/1024;border-radius:4px;overflow:hidden;user-select:none;touch-action:pan-y;justify-self:end}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.compare .after{clip-path:inset(0 0 0 var(--pos,50%))}
+.compare .handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:#fff;transform:translateX(-1px);pointer-events:none;box-shadow:0 0 12px rgba(239,159,184,.9)}
+.compare .handle::after{content:"";position:absolute;top:50%;left:50%;width:40px;height:40px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.compare .handle::before{content:"‹ ›";position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);z-index:1;font-family:var(--f-mono);font-size:13px;color:var(--ink);white-space:nowrap}
+.compare .tag{position:absolute;top:14px;z-index:2;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;background:rgba(247,244,240,.9);color:var(--ink);padding:5px 10px;border-radius:999px;pointer-events:none}
+.compare .tag.l{left:14px}.compare .tag.r{right:14px}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+@media (max-width:900px){.compare-grid{grid-template-columns:1fr}.compare{justify-self:center}}
+
+/* details */
+.details{padding-block:0 clamp(72px,10vw,140px)}
+.details-head{margin-bottom:40px;display:flex;flex-direction:column;gap:14px}
+.detail-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(16px,2vw,24px)}
+.detail{background:var(--mist);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.detail figure{margin:0;flex:1;min-height:0;overflow:hidden}
+.detail figure img{width:100%;height:100%;object-fit:cover}
+.detail .cap{padding:22px 24px 26px;display:flex;flex-direction:column;gap:8px}
+.detail h3{font-family:var(--f-kr-display);font-size:21px}
+.detail p{font-size:14px;color:var(--ink-soft)}
+.detail .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.detail .chips span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;border:1px solid var(--line);padding:4px 10px;border-radius:999px;color:var(--ink-soft)}
+.d-remote figure{aspect-ratio:1168/880}
+.d-led{display:grid;grid-template-columns:minmax(90px,0.55fr) 1fr}
+.d-led figure{aspect-ratio:auto}
+.d-led .cap{justify-content:flex-end}
+.led-swatches{display:flex;gap:8px;margin-top:8px}
+.led-swatches button{width:28px;height:28px;border-radius:50%;border:2px solid var(--ivory);cursor:pointer;box-shadow:0 0 0 1px var(--line)}
+.led-swatches button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
+.led-name{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--ink-soft)}
+.d-led figure{position:relative}
+.d-led .glow{position:absolute;inset:0;mix-blend-mode:color;opacity:0;transition:opacity .4s,background .4s}
+@media (max-width:900px){.detail-grid{grid-template-columns:1fr}}
+
+/* buy */
+.buy{border-top:1px solid var(--line);padding-block:clamp(64px,9vw,120px)}
+.buy-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:start}
+.buy-head{display:flex;flex-direction:column;gap:14px}
+.buy-info{display:flex;flex-direction:column;gap:24px;min-width:0}
+.price{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.price b{font-family:var(--f-display);font-weight:300;font-size:clamp(34px,4vw,48px);line-height:1;font-variant-numeric:tabular-nums}
+.price s{color:var(--ink-soft);font-size:14px}
+.price em{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--pink-deep);letter-spacing:.08em}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);padding:0;margin-bottom:10px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts label{position:relative}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts span{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--line);border-radius:999px;font-size:13px;cursor:pointer;transition:border-color .2s}
+.opts input:checked + span{border-color:var(--ink)}
+.opts input:focus-visible + span{outline:2px solid var(--pink-deep);outline-offset:2px}
+.opts i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px}
+.qty button{width:40px;height:42px;background:none;border:0;cursor:pointer;font-size:16px;color:var(--ink)}
+.qty output{min-width:24px;text-align:center;font-variant-numeric:tabular-nums}
+.inbox{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;font-size:13px;color:var(--ink-soft)}
+.inbox li::before{content:"—";margin-right:8px;color:var(--pink)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--ivory);padding:12px 20px;border-radius:999px;font-size:13px;opacity:0;transition:.35s;pointer-events:none;z-index:40;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:900px){.buy-grid{grid-template-columns:1fr}}
+
+/* footer */
+footer{background:#221e20;color:#d9d2cf;padding-block:clamp(64px,9vw,110px) 32px;overflow:hidden}
+.foot-line{font-family:var(--f-kr-display);font-size:clamp(26px,4vw,52px);line-height:1.3;color:#fbf8f5;max-width:14em}
+.wordmark{font-family:var(--f-display);font-weight:700;font-size:clamp(64px,17vw,250px);line-height:.85;letter-spacing:-.04em;margin-top:clamp(48px,7vw,96px);background:linear-gradient(90deg,var(--ice),var(--pink) 45%,var(--ice) 90%);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.foot-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:32px;padding-top:20px;border-top:1px solid #3a3436;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:#9b9295}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">SPOILER <small>MIRROR</small></a>
+    <ul>
+      <li><a href="#product">제품</a></li>
+      <li><a href="#how">사용 방법</a></li>
+      <li><a href="#fitting">가상 피팅</a></li>
+      <li><a href="#details">디테일</a></li>
+    </ul>
+    <a href="#buy" class="btn">구매하기</a>
+  </div>
+</header>
+
+<section class="hero" id="top" aria-label="SPOILER MIRROR 광고 영상">
+  <video id="film" src="hero.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+  <div class="hero-copy">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Virtual fitting mirror · 2026</p>
+        <h1>입어보기 전,<br>나를 먼저 보다.</h1>
+      </div>
+      <div class="hero-actions">
+        <a href="#buy" class="btn light">지금 만나보기</a>
+        <button class="sound" id="pause" aria-label="영상 일시정지">❚❚</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro" id="product">
+  <div class="wrap intro-grid">
+    <div class="intro-img"><img src="after.jpg" alt="핑크와 아이스블루 LED가 켜진 물결 프레임 전신 거울"></div>
+    <div class="intro-text">
+      <p class="eyebrow">The Mirror</p>
+      <h2>저장만 해둔 그 코디,<br>오늘 내 몸에 입혀보세요.</h2>
+      <p class="lead">핀터레스트나 인스타그램에 저장해둔 코디 사진을 보내면, SPOILER MIRROR가 거울 속 내 모습에 그 옷을 그대로 입혀 보여줍니다. 옷장을 다 꺼낼 필요도, 매장에 갈 필요도 없어요.</p>
+      <div class="specs">
+        <div><b>170<sub>cm</sub></b><span>전신 거울 높이</span></div>
+        <div><b>2<sub>colors</sub></b><span>핑크 · 아이스블루 LED</span></div>
+        <div><b>1<sub>click</sub></b><span>리모컨으로 코디 전환</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-head">
+      <h2>세 번이면 끝나요.</h2>
+      <p class="eyebrow">How it works</p>
+    </div>
+    <ol class="steps">
+      <li><span class="n">STEP 01</span><h3>마음에 드는 코디를 저장</h3><p>평소처럼 핀터레스트, 인스타그램, 쇼핑몰에서 입고 싶은 코디 사진을 저장하세요.</p></li>
+      <li><span class="n">STEP 02</span><h3>앱에서 거울로 전송</h3><p>SPOILER 앱에서 사진을 고르면 거울이 옷의 실루엣과 소재를 읽어 준비합니다.</p></li>
+      <li><span class="n">STEP 03</span><h3>리모컨을 누르면 변신</h3><p>거울 앞에 서서 리모컨을 누르면 핑크 빛이 켜지고, 거울 속 내 옷만 바뀝니다.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="compare-sec" id="fitting">
+  <div class="wrap compare-grid">
+    <div class="compare-text">
+      <p class="eyebrow">Light on / off</p>
+      <h2>평소엔 오브제,<br>켜면 피팅룸.</h2>
+      <p>손잡이를 좌우로 움직여 보세요. LED를 끄면 방 어디에나 어울리는 펄 화이트 웨이브 거울이고, 리모컨을 누르면 핑크와 아이스블루 빛이 들어오며 가상 피팅이 시작돼요.</p>
+      <div class="legend"><span><i></i>LED OFF</span><span class="on"><i></i>LED ON · 피팅 중</span></div>
+    </div>
+    <div class="compare" id="compare" style="--pos:50%">
+      <img src="before.jpg" alt="LED가 꺼진 펄 화이트 물결 프레임 전신 거울">
+      <img class="after" src="after.jpg" alt="핑크와 아이스블루 LED가 켜진 같은 물결 프레임 전신 거울">
+      <span class="tag l">LED Off</span><span class="tag r">LED On</span>
+      <div class="handle"></div>
+      <input type="range" id="cmp" min="0" max="100" value="50" aria-label="피팅 전후 비교">
+    </div>
+  </div>
+</section>
+
+<section class="details" id="details">
+  <div class="wrap">
+    <div class="details-head">
+      <p class="eyebrow">Details</p>
+      <h2>손 안의 리모컨, 프레임의 빛.</h2>
+    </div>
+    <div class="detail-grid">
+      <article class="detail d-remote">
+        <figure><img src="remote.jpg" alt="가장자리에 핑크 LED가 들어오는 구름 모양 화이트 리모컨과 실버 충전 패드"></figure>
+        <div class="cap">
+          <h3>자석 충전 리모컨</h3>
+          <p>거울 프레임처럼 몽글한 구름 모양에, 가장자리에는 핑크 빛이 은은하게 들어와요. 버튼 하나로 다음 코디로 넘기고, 길게 누르면 전체 코디 목록을 불러옵니다. 쓰지 않을 땐 실버 충전 패드에 올려두면 자석으로 붙어 충전돼요.</p>
+          <div class="chips"><span>원 버튼</span><span>마그네틱 충전</span><span>최대 30일 사용</span></div>
+        </div>
+      </article>
+      <article class="detail d-led">
+        <figure><img src="led.jpg" alt="물결 모양 프레임의 LED 조명 근접 사진"><div class="glow" id="glow"></div></figure>
+        <div class="cap">
+          <h3>무드 LED 프레임</h3>
+          <p>반투명 물결 프레임 안쪽에 LED가 들어 있어요. 피팅 중에는 핑크, 대기 중에는 아이스블루로 상태를 알려줍니다.</p>
+          <div class="led-swatches" role="group" aria-label="LED 색상 미리보기">
+            <button aria-pressed="true" data-c="" style="background:linear-gradient(135deg,var(--pink),var(--ice))" aria-label="그라데이션"></button>
+            <button aria-pressed="false" data-c="#ef9fb8" style="background:var(--pink)" aria-label="핑크"></button>
+            <button aria-pressed="false" data-c="#a9c8ea" style="background:var(--ice)" aria-label="아이스블루"></button>
+          </div>
+          <span class="led-name" id="ledName">PINK × ICE BLUE</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="buy" id="buy">
+  <div class="wrap buy-grid">
+    <div class="buy-head">
+      <p class="eyebrow">SPOILER MIRROR · First Edition</p>
+      <h2>오늘의 나를,<br>먼저 만나보세요.</h2>
+    </div>
+    <form class="buy-info" id="buyForm">
+      <div class="price"><b id="price">₩1,290,000</b><s>₩1,490,000</s><em>런칭 특가</em></div>
+      <fieldset>
+        <legend>프레임 컬러</legend>
+        <div class="opts">
+          <label><input type="radio" name="frame" id="f-pearl" value="펄 화이트" checked><span><i style="background:#f3efee;box-shadow:inset 0 0 0 1px #ccc"></i>펄 화이트</span></label>
+          <label><input type="radio" name="frame" id="f-blush" value="블러시 핑크"><span><i style="background:#f4c9d6"></i>블러시 핑크</span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>수량</legend>
+        <div class="row">
+          <div class="qty"><button type="button" id="minus" aria-label="수량 줄이기">−</button><output id="q">1</output><button type="button" id="plus" aria-label="수량 늘리기">+</button></div>
+          <button type="submit" class="btn">장바구니 담기</button>
+        </div>
+      </fieldset>
+      <ul class="inbox">
+        <li>SPOILER MIRROR 본체</li>
+        <li>구름 리모컨 · 충전 패드</li>
+        <li>벽 고정 키트</li>
+        <li>전원 어댑터</li>
+      </ul>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-line">어울릴지 고민하던 시간을,<br>설레는 시간으로.</p>
+    <div class="wordmark" aria-hidden="true">SPOILER</div>
+    <div class="foot-meta"><span>© 2026 SPOILER MIRROR</span><span>콘셉트 웹사이트 · 가격과 사양은 예시입니다</span></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+
+  const film=document.getElementById('film'),pause=document.getElementById('pause');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){film.removeAttribute('autoplay');film.pause();pause.textContent='▶';pause.setAttribute('aria-label','영상 재생');}
+  pause.addEventListener('click',()=>{
+    if(film.paused){film.play().catch(()=>{});pause.textContent='❚❚';pause.setAttribute('aria-label','영상 일시정지');}
+    else{film.pause();pause.textContent='▶';pause.setAttribute('aria-label','영상 재생');}
+  });
+
+  const cmp=document.getElementById('cmp'),box=document.getElementById('compare');
+  cmp.addEventListener('input',()=>box.style.setProperty('--pos',cmp.value+'%'));
+
+  const glow=document.getElementById('glow'),ledName=document.getElementById('ledName');
+  const names={'':'PINK × ICE BLUE','#ef9fb8':'PINK · 피팅 중','#a9c8ea':'ICE BLUE · 대기 중'};
+  document.querySelectorAll('.led-swatches button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.led-swatches button').forEach(x=>x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true');
+    const c=b.dataset.c;glow.style.background=c||'transparent';glow.style.opacity=c?'.85':'0';ledName.textContent=names[c];
+  }));
+
+  let q=1;const qo=document.getElementById('q'),price=document.getElementById('price');
+  const upd=()=>{qo.textContent=q;price.textContent='₩'+(1290000*q).toLocaleString('ko-KR');};
+  document.getElementById('minus').onclick=()=>{q=Math.max(1,q-1);upd();};
+  document.getElementById('plus').onclick=()=>{q=Math.min(5,q+1);upd();};
+
+  const toast=document.getElementById('toast');let t;
+  document.getElementById('buyForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const f=new FormData(e.target).get('frame');
+    toast.textContent=`${f} ${q}대를 장바구니에 담았어요 (콘셉트 페이지라 실제 주문은 되지 않아요)`;
+    toast.classList.add('show');clearTimeout(t);t=setTimeout(()=>toast.classList.remove('show'),3200);
+  });
+})();
+</script>
+</body>
+</html>
